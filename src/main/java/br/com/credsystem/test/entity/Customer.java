@@ -1,23 +1,25 @@
 package br.com.credsystem.test.entity;
 
+import java.io.Serializable;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "customers")
-public class Customer {
+public class Customer implements Serializable {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Integer id;
 
 	@Column(name = "nome")
@@ -29,8 +31,8 @@ public class Customer {
 	@Column(name = "email", nullable = false, length = 200)
 	private String email;
 
-	@OneToMany(targetEntity = Card.class, cascade = CascadeType.ALL)
-	@JoinColumn(name = "customer_cards_fk", referencedColumnName = "id")
+	@JsonIgnore
+	@OneToMany(mappedBy="customer",fetch=FetchType.LAZY)
 	private List<Card> cards;
 
 	public Integer getId() {
@@ -71,12 +73,6 @@ public class Customer {
 
 	public void setCards(List<Card> cards) {
 		this.cards = cards;
-	}
-
-	@Override
-	public String toString() {
-		return "CustomerEntity [id=" + id + ", nome=" + nome + ", salario=" + salario + ", email=" + email
-				+ ", cartoes=" + cards + "]";
 	}
 
 }

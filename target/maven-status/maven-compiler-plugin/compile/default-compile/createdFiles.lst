@@ -1,7 +1,7 @@
+br\com\credsystem\test\service\CustomerService.class
+br\com\credsystem\test\entity\Card.class
 br\com\credsystem\test\entity\Customer.class
 br\com\credsystem\test\Application.class
-br\com\credsystem\test\service\CustomerService.class
 br\com\credsystem\test\repository\CardRepository.class
 br\com\credsystem\test\repository\CustomerRepository.class
-br\com\credsystem\test\entity\Card.class
 br\com\credsystem\test\controller\CustomerController.class

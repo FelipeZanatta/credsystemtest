@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.credsystem.test.entity.Customer;
+import br.com.credsystem.test.repository.CardRepository;
 import br.com.credsystem.test.repository.CustomerRepository;
 
 @Service
@@ -15,6 +16,12 @@ public class CustomerService {
 
 	@Autowired
 	CustomerRepository repository;
+	
+	@Autowired
+	CardRepository cardRepository;
+	
+	@Autowired
+	CardService cardService;
 
 	public List<Customer> getAllCostumers() {
 		List<Customer> customerList = repository.findAll();
@@ -36,7 +43,17 @@ public class CustomerService {
 		}
 	}
 
-	public Customer createOrUpdateCustomer(Customer entity) throws Exception {
+	public Customer createCustomer(Customer entity) throws Exception {
+		Customer customer = repository.save(entity);
+		
+		if (customer.getId() != null) {
+			return customer;
+		} else {
+			throw new Exception("This customer cannot be created");		
+		}
+	}
+
+	public Customer updateCustomer(Customer entity) throws Exception {
 		Optional<Customer> customer = repository.findById(entity.getId());
 
 		if (customer.isPresent()) {

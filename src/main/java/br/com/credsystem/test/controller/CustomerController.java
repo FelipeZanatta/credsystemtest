@@ -10,9 +10,11 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.context.annotation.RequestScope;
 
 import br.com.credsystem.test.entity.Customer;
 import br.com.credsystem.test.service.CustomerService;
@@ -38,11 +40,18 @@ public class CustomerController {
 
 		return new ResponseEntity<Customer>(entity, new HttpHeaders(), HttpStatus.OK);
 	}
-
+	
 	@PostMapping("/new")
-	public ResponseEntity<Customer> createOrUpdateCustomer(@RequestBody Customer customer) throws Exception {
+	public ResponseEntity<Customer> createCustomer(@RequestBody Customer customer) throws Exception {
+		
+		Customer create = service.createCustomer(customer);
+		return new ResponseEntity<Customer>(create, new HttpHeaders(), HttpStatus.OK);
+	}
 
-		Customer updated = service.createOrUpdateCustomer(customer);
+	@PutMapping("/{id}")
+	public ResponseEntity<Customer> updateCustomer(@RequestBody Customer customer) throws Exception {
+
+		Customer updated = service.updateCustomer(customer);
 		return new ResponseEntity<Customer>(updated, new HttpHeaders(), HttpStatus.OK);
 	}
 
