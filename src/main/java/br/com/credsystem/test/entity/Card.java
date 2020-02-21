@@ -5,18 +5,16 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-
-
 @Entity
 @Table(name = "cards")
 public class Card {
-	
+
 	@Id
-	@Column(name = "numero")
-	private int numero;
-	
 	@Column(name = "cartao")
 	private String cartao;
+
+	@Column(name = "numero")
+	private Long numero;
 
 	@Column(name = "limite_utilizado")
 	private double limiteUtilizado;
@@ -32,11 +30,11 @@ public class Card {
 		this.cartao = cartao;
 	}
 
-	public int getNumero() {
+	public Long getNumero() {
 		return numero;
 	}
 
-	public void setNumero(int numero) {
+	public void setNumero(Long numero) {
 		this.numero = numero;
 	}
 

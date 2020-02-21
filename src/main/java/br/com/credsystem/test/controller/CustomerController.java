@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -39,7 +40,7 @@ public class CustomerController {
 	}
 
 	@PostMapping("/new")
-	public ResponseEntity<Customer> createOrUpdateCustomer(Customer customer) throws Exception {
+	public ResponseEntity<Customer> createOrUpdateCustomer(@RequestBody Customer customer) throws Exception {
 
 		Customer updated = service.createOrUpdateCustomer(customer);
 		return new ResponseEntity<Customer>(updated, new HttpHeaders(), HttpStatus.OK);
